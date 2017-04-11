@@ -1,0 +1,11 @@
+{%extends 'blog/header.html'%}
+{% load crispy_forms_tags  %}
+
+{% block title %}See you!{% endblock %}
+<div class="container">
+{% block content %}z
+  <h2>please login or sing Up with us to  create Advertising</h2>
+  <p>You hav to do this.</p>
+  <p class=""><a href="{% url 'singup' %}">SingUp</a> or <a href="{% url 'login' %}">Login</a> again.</p>
+ </div>
+{% endblock %}

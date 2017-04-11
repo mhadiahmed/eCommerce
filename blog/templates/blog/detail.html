@@ -1,0 +1,126 @@
+{%extends 'blog/header.html'%}
+{% load crispy_forms_tags  %}
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-success" role="alert">
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="left-panel">
+        <div class="col-xs-12 col-sm-6 col-lg-8">
+    	    <!-- <div class="panel panel-default"> -->
+    		    <!-- <div class="panel-body"> -->
+    				<div class="col-md-12">
+    				    {%if request.user == instance.auth or request.user.id == 1%}
+                        <span class="btn btn-default"><a href="{{instance.get_update_url}}">Edit</a></span>
+                        {% url 'delete' as delete %}
+                        <span class="btn btn-warning"><a href="{{instance.get_delete_url}}">Delete</a></span><br>
+                        {%endif%}
+                        
+    					{% if instance.image %}
+    					<div class="thumbnail">
+							<img src="{{ instance.image.url }}" class="img-resposive"/>
+							{% endif %}
+    					</div>
+    					<div class="icerik-bilgi">
+    						<h2><strong>{{instance.title}}</strong><small><br>
+							{{instance.date}}</small></h2>
+                            {% if instance.draft %}<span style="color:red;">Draft</span>{%endif%}
+							<div class="jumbotron">
+								  <div class="container">
+    								<p class ="mark-Down">{{instance.dis}}</p>
+								  </div>
+							</div>
+    						<div class="list-group">
+                            <p class = "list-group-item">Posted by: {{instance.auth.first_name}}</p>
+    						<p class = "list-group-item">Type: {{instance.Type}}</p>
+                            <p class = "list-group-item">Case: {{instance.case}}</p>
+    						<p class = "list-group-item">City: {{instance.city}}</p>
+                            <p class = "list-group-item">Adress: {{instance.address}}</p>
+    						<p class = "list-group-item">Price: {{instance.price}}</p>
+    						</div><br>
+    						<a href="#">
+<!-- 
+    							<span class="btn btn-primary" style="margin-right:10px;"><i class="fa - fa-dollar"> Price {{instance.price}} </i> </span> -->
+                            <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                                  <i class="fa fa-dollar"> Pay</i>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">select your Pay way</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                       <p> <a type="button" class="btn btn-primary" href="{%url 'Pay'%}">online Pay</a>&nbsp;&nbsp;
+                                       <a type="button" class="btn btn-primary" href="{%url 'direct'%}">Direct connection</a></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+    						 </a>
+                             </div><br>
+                             <div class="main">
+                                <p class="lead"><strong>Comments</strong></p>
+                                {% if request.user.is_authenticated%}
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    {{coments_form|crispy}}
+                                    <button  type="submit"  class="btn btn-info">Comment</button>
+                                </form>
+                                {%else%}
+                                <p>you must login to commint</p>
+                                {%endif%}
+
+                                    {% for comment in comments%}
+                                    <hr>
+                                    <blockquote>
+                                      <p>{{comment.content}}</p>
+                                        <footer>via {{comment.user}} | {{comment.timestamp|timesince}} ago| {%if comment.Child.count > 0 %}{{comment.Child.count}} Comment{%if comment.Child.count > 1 %}s{%endif%} | {%endif%}
+                                            <a class = 'coment-r-btn' href='#'> Reply </a> | <a class = '' href='{{comment.get_absolute_url}}'> thread </a></footer>
+                                        <div class='comment-Reply' style="display:none;">
+                                        {% for coment_child in comment.Child%}
+                                    <blockquote>
+                                          <p>{{coment_child.content}}</p>
+                                          <footer>via {{coment_child.user}} | {{coment_child.timestamp|timesince}} ago</footer>
+                                          
+                                    </blockquote>
+                                        {% endfor %}
+                                            {% if request.user.is_authenticated%}
+                                            <form method="POST" action="">
+                                                {% csrf_token %}
+                                                {{coments_form|crispy}}
+                                                <input type="hidden" name="parent_id" value="{{comment.id}}">
+                                                <input type="submit" value="Reply" class="btn btn-default">
+                                            </form>
+                                            {%else%}
+                                            <p>you must login to commint</p>
+                                            {%endif%}
+
+                                        </div>
+                                    </blockquote>
+                                     
+                                    {% endfor %}
+                                    </div>
+                                 </div>   
+                                </div>
+                                </div>
+                             </div>
+    					</div>
+    				</div>
+
+
+{% endblock content %}

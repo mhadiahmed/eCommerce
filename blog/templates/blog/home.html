@@ -1,0 +1,124 @@
+{%extends 'blog/header.html'%}
+{% block content %}
+{% if messages %}
+<div class="alert alert-success" role="alert">
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+</div>
+{% endif %}
+<div class="container">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel"  style="height: 400px">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox"  style="height: 400px">
+    <div class="item active" style="height: 400px">
+    {% load staticfiles %}
+      <img src="{%static 'blog/slider/market.jpg' %}" alt="..."  width="100%">
+      <div class="carousel-caption" >
+          <h1 style = "color:#000; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">E-Market</h1>
+          <p style="font-size: 15pt"><strong>wellcom to Ellectronic Market Place</strong></p>
+      </div>
+    </div>
+    <div class="item" style="height: 400px">
+      <img src="{%static 'blog/slider/online.jpg' %}" alt="..." >
+      <div class="carousel-caption">
+          <h1 style = "color:#000; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">Online Market</h1>
+          <p style="font-size: 15pt"><strong>sell and pay from anywhere</strong></p>
+      </div>
+    </div>
+    <div class="item" style="height: 400px">
+      <img src="{%static 'blog/slider/shop.jpg' %}" alt="..." width="100%">
+      <div class="carousel-caption">
+          <h1 style = "color:#000; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">Esay To Use</h1>
+          <p style="font-size: 15pt"><strong>Use Your Master Card Or Your Visa Card</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div><br>
+<div style="clear: both;margin-bottom: 20px;"><a class = "btn btn-warning" href="{% url 'create' %}"><i class="fa fa-plus">  Post a Free Add</i></a></div>
+{% include 'blog/include/header2.html'%}
+<div class="row" style = "padding-top:20px;">
+<div class="container"><h2>Latest Additions</h2></div>
+{%for obj in object_list%}
+  <div class="col-sm-3 ">
+    <div class="thumbnail enr">
+	{% if obj.image %}
+	<img src="{{ obj.image.url }}" class="img-resposive" />
+	{% endif %}
+      <div class="caption">
+        <h3><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3><strong><small class="small"> {{obj.date|date:"Y-m-d"}} {{obj.date|timesince}}</small></strong>
+        <p class = "clo"><strong><i class="fa - fa-dollar"> {{obj.price}} </i></strong></p>
+        <p><strong>{{obj.Type}}</strong></p>
+        <p><a href="{{obj.get_absolute_url}}" class="btn btn-primary" role="button"><i class="fa fa-angle-double-right" > View</i></a>
+        <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+              <i class="fa fa-dollar"> Pay</i>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">select your Pay way</h4>
+                  </div>
+                  <div class="modal-body">
+                   <p> <a type="button" class="btn btn-primary" href="{%url 'Pay'%}">online Pay</a>&nbsp;&nbsp;
+                   <a type="button" class="btn btn-primary" href="{%url 'direct'%}">Direct connection</a></p>
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </p>
+      </div>
+    </div>
+   </div>
+  {% endfor %}
+  <div class="clearfix"></div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{page_var}}={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{page_var}}={{ object_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+    <!--end load-->
+<!-- {%for user in users%} -->
+    <!-- <div class="load"><a href="{%url 'profile_pk' pk=user.pk%}">{{user.username}}</a></div> -->
+    <!--star load-->
+<!-- {%endfor%} -->
+</div>
+</div>
+</div>
+
+
+{% endblock content %}

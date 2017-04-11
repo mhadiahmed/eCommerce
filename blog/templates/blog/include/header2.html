@@ -1,0 +1,32 @@
+{%block content%}
+  {% url 'home' as home %}
+  {% url 'car' as car %}
+  {% url 'Phone' as Phone %}
+  {% url 'Laptop' as Laptop %}
+  {% url 'Electronic' as Electronic %}
+  {% url 'Clothes' as Clothes %}
+  {% url 'Furnishings' as Furnishings %}
+  {% url 'sports' as sports %}
+  {% url 'Property' as Property %}
+  {% url 'books' as books %}
+  {% url 'Other' as Other %}
+  {% url 'Jops' as Jops %}
+  {% url 'Makeup' as Makeup %}
+  <div class="ro">
+  <ul class="nav nav-tabs">
+      <li {% if request.path  == home %} class="active" {% endif %} role="presentation" ><a href="{% url 'home'%}">Home</a></li>
+      <li <li {% if request.path  == car %} class="active" {% endif %} role="presentation"><a href="{% url 'car'%}">Cars</a></li>
+      <li <li {% if request.path  == Phone %} class="active" {% endif %} role="presentation"><a href="{% url 'Phone'%}">Phone</a></li>
+      <li <li {% if request.path  == Laptop %} class="active" {% endif %} role="presentation"><a href="{% url 'Laptop'%}">laptop</a></li>
+      <li <li {% if request.path  == Electronic %} class="active" {% endif %} role="presentation"><a href="{% url 'Electronic'%}">Electronic</a></li>
+      <li <li {% if request.path  == Clothes %} class="active" {% endif %} role="presentation"><a href="{% url 'Clothes'%}">Clothes</a></li>
+      <li <li {% if request.path  == Furnishings %} class="active" {% endif %} role="presentation"><a href="{% url 'Furnishings'%}">Furnishings</a></li>
+      <li <li {% if request.path  == sports %} class="active" {% endif %} role="presentation"><a href="{% url 'sports'%}">sports</a></li>
+      <li <li {% if request.path  == Property %} class="active" {% endif %} role="presentation"><a href="{% url 'Property'%}">Property</a></li>
+      <li <li {% if request.path  == books %} class="active" {% endif %} role="presentation"><a href="{% url 'books'%}">books</a></li>
+      <li <li {% if request.path  == Other %} class="active" {% endif %} role="presentation"><a href="{% url 'Other'%}">Other</a></li>
+      <li <li {% if request.path  == Jops %} class="active" {% endif %} role="presentation"><a href="{% url 'Jops'%}">Jops</a></li>
+      <li <li {% if request.path  == Makeup %} class="active" {% endif %} role="presentation"><a href="{% url 'Makeup'%}">Makeup</a></li>
+  </ul>
+  </div>
+{%endblock content%}

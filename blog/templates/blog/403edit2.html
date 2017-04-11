@@ -1,0 +1,10 @@
+{%extends 'blog/header.html'%}
+{% load crispy_forms_tags  %}
+
+{% block title %}See you!{% endblock %}
+<div class="container">
+{% block content %}
+  <h2>You do not have permission to do this.</h2>
+  <p class="alert alert-warning" role="alert">You not allowe to update this Post</p>
+ </div>
+{% endblock %}

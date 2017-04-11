@@ -1,0 +1,37 @@
+{%extends 'blog/header.html'%}
+{% load crispy_forms_tags  %}
+{% block content %}
+
+<div class="main">
+<p class="lead">Comments</p>
+    <hr>
+    <blockquote>
+      <p>{{comment.content}}</p>
+        <footer>via {{comment.user}} | {{comment.timestamp|timesince}} ago| {%if comment.Child.count > 0 %}{{comment.Child.count}} Comment{%if comment.Child.count > 1 %}s{%endif%}  {%endif%} | 
+         {%if request.user == comment.user%}<a href="{{comment.get_delete_url}}">Delete</a>{%endif%}
+         </footer>
+        <div>
+        {% for coment_child in comment.Child%}
+    <blockquote>
+          <p>{{coment_child.content}}</p>
+          <footer>via {{coment_child.user}} | {{coment_child.timestamp|timesince}} ago | {%if request.user == coment_child.user%}<a href="{{coment_child.get_delete_url}}">Delete</a>{%endif%}</footer>
+          
+    </blockquote>
+        {% endfor %}
+        {% if request.user.is_authenticated%}
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{form|crispy}}
+                <input type="hidden" name="parent_id" value="{{comment.id}}">
+                <input type="submit" value="Reply" class="btn btn-default">
+            </form>
+          {%else%}
+          <p>you must login to commint</p>
+          {%endif%}
+
+        </div>
+    </blockquote>
+     
+
+    </div>
+{% endblock content %}

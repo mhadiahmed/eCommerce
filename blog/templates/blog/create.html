@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{%extends 'blog/header.html'%}
+{% load crispy_forms_tags  %}
+{% block extra %}
+{{ form.media }}
+{% endblock extra %}
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+<div class="col-sm-6">
+<h2>preview</h2>
+<div class="col-sm-3">
+    <div class="thumbnail enr">
+	<img id="img-pr" src="" class="img-resposive"/>
+      <div class="caption">
+        <h3 id = "title-pr"></h3>
+        <strong><small class="small" id="date-pr"> {{obj.date|date:"Y-m-d"}} {{obj.date|timesince}}</small></strong>
+        <strong><p class = "clo"><i class="fa - fa-dollar" id = "price-id"> </i></p></strong>
+        <p id="dis-pr"></p>
+        <p><a href="#" class="btn btn-primary" role="button"><i class="fa fa-angle-double-right"> View</i></a></p>
+      </div>
+    </div>
+   </div>
+</div>
+<!-- colpse -->
+<div class="col-sm-6">
+<form method="post" action="" enctype="multipart/form-data" class="form-group">
+{% csrf_token %}
+
+{{form|crispy}}
+<button type="submit" class="btn btn-primary"><i class = "fa fa-bookmark-o"> Create</i></button>
+</form>
+</div>
+</div>
+{% endblock content %}
+
+</body>
+</html>
