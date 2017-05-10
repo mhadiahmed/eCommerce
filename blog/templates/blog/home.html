@@ -62,12 +62,12 @@
   <div class="col-sm-3 ">
     <div class="thumbnail enr">
 	{% if obj.image %}
-	<img src="{{ obj.image.url }}" class="img-resposive" />
+	<img src="{{ obj.image.url }}" class="img-rounded" />
 	{% endif %}
       <div class="caption">
         <h3><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3><strong><small class="small"> {{obj.date|date:"Y-m-d"}} {{obj.date|timesince}}</small></strong>
-        <p class = "clo"><strong><i class="fa - fa-dollar"> {{obj.price}} </i></strong></p>
-        <p><strong>{{obj.Type}}</strong></p>
+        <p class = "clo"><strong><i class="fa - fa-dollar"> {{obj.price}} | </i></strong>
+        <strong>{{obj.Type}}</strong></p>
         <p><a href="{{obj.get_absolute_url}}" class="btn btn-primary" role="button"><i class="fa fa-angle-double-right" > View</i></a>
         <!-- Button trigger modal -->
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
@@ -119,6 +119,7 @@
 </div>
 </div>
 </div>
+
 
 
 {% endblock content %}

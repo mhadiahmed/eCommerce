@@ -17,6 +17,7 @@
 {%for obj in object_list%}
   <div class="col-sm-3 ">
     <div class="thumbnail enr">
+    <div>{{massegr}}</div>
   {% if obj.image %}
   <img src="{{ obj.image.url }}" class="img-resposive" />
   {% endif %}

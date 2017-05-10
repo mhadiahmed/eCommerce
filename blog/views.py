@@ -27,13 +27,13 @@ def index(request):
 	queryset_list = Post.objects.active()#.order_by("-date")
 	users = User.objects.all()
 	query = request.GET.get("q")
-	if query:
-		queryset_list = queryset_list.filter(
-			Q(title__icontains=query)|
-			Q(dis__icontains=query)|
-			Q(price__icontains=query)|
-			Q(city__icontains=query)
-			)
+	if query: 
+			queryset_list = queryset_list.filter(
+				Q(title__icontains=query)|
+				Q(dis__icontains=query)|
+				Q(price__icontains=query)|
+				Q(city__icontains=query)
+				)
 	paginator = Paginator(queryset_list, 8) # Show 25 contacts per page
 	page_var = "page"
 	page = request.GET.get(page_var)
@@ -70,7 +70,8 @@ def create(request):
 		return HttpResponseRedirect(instance.get_absolute_url())
 	context = {
 		"form":form,
-		"title":"Form"
+		"title":"Form",
+		"title2":"Create"
 	}
 	return render(request,"blog/create.html",context)
 
@@ -185,7 +186,8 @@ def ChangePassword(request):
 
 @login_required
 def update(request,id=None):
-	if not request.user.is_authenticated() and not request.user.is_superuser:
+	instance = get_object_or_404(Post,id=id)
+	if not request.user == instance.auth and not request.user.id == 1:
 		# raise Http404
 		respons = render_to_response("blog/403edit2.html",{"title":"Not Fonde 404"})
 		respons.status_code = 403
@@ -201,13 +203,16 @@ def update(request,id=None):
 	context = {
 		"instance":instance,
 		"form":form,
-		"title":"Update "+ title
+		"title":"Edit "+ title,
+		"title2":"Edit"
 	}
 	return render(request,"blog/create.html",context)
+	
 #delte my post 
 @login_required
 def delete(request, id=None):
-	if not request.user.is_staff or not request.user.is_superuser:
+	instance = get_object_or_404(Post,id=id)
+	if not request.user == instance.auth and not request.user.id == 1:
 		# raise Http404
 		respons = render_to_response("blog/404.html",{"title":"Page Not Fonde"})
 		respons.status_code = 403
@@ -235,7 +240,6 @@ def contact(request):
 	#     return redirect('home')
 	form_class = ContactForm
 
-	# new logic!
 	if request.method == 'POST':
 		form = form_class(data=request.POST)
 
@@ -248,8 +252,6 @@ def contact(request):
 			, '')
 			form_content = request.POST.get('content', '')
 
-			# Email the profile with the 
-			# contact information
 			template = get_template('contact_template.txt')
 			context = Context({
 			'contact_name': contact_name,
@@ -274,25 +276,11 @@ def contact(request):
 	}
 	return render(request,"blog/contact.html",context)
 
-
+@login_required
 def direct(request):
 	title = 'Send a Massege'
-	# if request.method == 'GET':
-	# 	form = ContactForm()
-	# else:
-	# 	form = ContactForm(request.POST)
-	# if form.is_valid():
-	#     subject = form.cleaned_data['subject']
-	#     from_email = form.cleaned_data['from_email']
-	#     message = form.cleaned_data['message']
-	#     try:
-	#         send_mail(subject, message, from_email, ['mhadiahmed63@gmail.com'])
-	#     except BadHeaderError:
-	#         return HttpResponse('Invalid header found.')
-	#     return redirect('home')
 	form_class = ContactForm
 
-	# new logic!
 	if request.method == 'POST':
 		form = form_class(data=request.POST)
 
@@ -304,9 +292,6 @@ def direct(request):
 			'contact_email'
 			, '')
 			form_content = request.POST.get('content', '')
-
-			# Email the profile with the 
-			# contact information
 			template = get_template('contact_template.txt')
 			context = Context({
 			'contact_name': contact_name,
@@ -401,7 +386,7 @@ def car(request):
 		"title":"car",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/car.html",context)
+	return render(request,"blog/section.html",context)
 
 # the phone section
 def Phone(request):
@@ -427,7 +412,7 @@ def Phone(request):
 		"title":"Phone",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/phone.html",context)
+	return render(request,"blog/section.html",context)
 # the Laptop section
 def Laptop(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Laptop")
@@ -452,7 +437,7 @@ def Laptop(request):
 		"title":"Laptop",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/laptop.html",context)
+	return render(request,"blog/section.html",context)
 # the Jops section
 def Jops(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Jops")
@@ -477,7 +462,7 @@ def Jops(request):
 		"title":"Jops",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/jops.html",context)
+	return render(request,"blog/section.html",context)
 # the Electronic section
 def Electronic(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Electronic")
@@ -502,7 +487,7 @@ def Electronic(request):
 		"title":"Electronic",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/electronic.html",context)
+	return render(request,"blog/section.html",context)
 # the Clothes section
 def Clothes(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Clothes")
@@ -527,7 +512,7 @@ def Clothes(request):
 		"title":"Clothes",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/clothes.html",context)
+	return render(request,"blog/section.html",context)
 # the Makeup section
 def Makeup(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Makeup")
@@ -552,7 +537,7 @@ def Makeup(request):
 		"title":"Makeup",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/makeup.html",context)
+	return render(request,"blog/section.html",context)
 # the Furnishings section
 def Furnishings(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Furnishings")
@@ -577,7 +562,7 @@ def Furnishings(request):
 		"title":"Furnishings",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/furnishings.html",context)
+	return render(request,"blog/section.html",context)
 # the books section
 def books(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="books")
@@ -602,7 +587,7 @@ def books(request):
 		"title":"Books",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/books.html",context)
+	return render(request,"blog/section.html",context)
 # the sports section
 def sports(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="sports")
@@ -627,7 +612,7 @@ def sports(request):
 		"title":"Sports",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/sports.html",context)
+	return render(request,"blog/section.html",context)
 # the Property section
 def Property(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Property")
@@ -652,7 +637,7 @@ def Property(request):
 		"title":"Property",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/property.html",context)
+	return render(request,"blog/section.html",context)
 # the Other section
 def Other(request):
 	queryset_list = Post.objects.active().filter(Type__icontains="Other")
@@ -677,7 +662,7 @@ def Other(request):
 		"title":"Others",
 		"page_var":page_var
 	}
-	return render(request,"blog/section/other.html",context)
+	return render(request,"blog/section.html",context)
 
 
 
