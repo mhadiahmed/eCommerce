@@ -132,11 +132,34 @@ def profile(request,pk=None):
 		respons = render_to_response("blog/noprofile.html",{"title":"Not Fonde 404"})
 		respons.status_code = 403
 		return respons
+	queryset_list = Post.objects.active().filter(auth=user)
+	query = request.GET.get("q")
+	if query:
+		queryset_list = queryset_list.filter(
+			Q(title__icontains=query)|
+			Q(dis__icontains=query)|
+			Q(price__icontains=query)
+			)
+	paginator = Paginator(queryset_list, 10) # Show 25 contacts per page
+	page_var = "page"
+	page = request.GET.get(page_var)
+	try:
+	    queryset = paginator.page(page)
+	except PageNotAnInteger:
+	    queryset = paginator.page(1)
+	except EmptyPage:
+	    queryset = paginator.page(paginator.num_pages)
+	
 	context = {
-	"title":"profile",
-	"user":user,
+		"title":"profile",
+		"user":user,
+		"object_list":queryset,
+		"page_var":page_var,
 	}
 	return render(request,"blog/profile.html",context)
+
+
+
 # update my post
 
 

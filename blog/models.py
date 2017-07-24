@@ -12,7 +12,7 @@ class PostManager(models.Manager):
 		return super(PostManager,self).filter(draft=False).filter(puplis__lte=timezone.now())
 
 class Post(models.Model):
-	auth = models.ForeignKey(User)
+	auth = models.ForeignKey(User,default=1)
 	title        = models.CharField(max_length=120)
 	DESCSPECSOFT = (
     (u'Null','Null'),
@@ -56,8 +56,10 @@ class Post(models.Model):
 	company      = models.CharField(max_length=120)
 	dis          = models.TextField(default="in here you w,ll write all the discribtion about your product")
 	image        = models.ImageField(null=True,blank=True,width_field="width_field", height_field="height_field")
-	width_field  = models.IntegerField(default=0)
-	height_field = models.IntegerField(default=0)
+	image1        = models.ImageField(null=True,blank=True,width_field="width_field", height_field="height_field")
+	image2       = models.ImageField(null=True,blank=True,width_field="width_field", height_field="height_field")
+	width_field  = models.IntegerField(null=True,blank=True,default=0)
+	height_field = models.IntegerField(null=True,blank=True,default=0)
 	case         = models.CharField(choices=Case, default=99,blank = False,null = False,max_length=120)
 	price        = models.BigIntegerField(default=0)
 	city         = models.CharField(choices=City, default='Null',blank = False,null = False,max_length=120)

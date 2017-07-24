@@ -10,6 +10,7 @@ from django.contrib.auth import(
 	)
 
 #is_staff()) 
+
 class UserProfile(forms.ModelForm):
 	class Meta:
 		model = userProfile
@@ -21,6 +22,7 @@ class UserProfile(forms.ModelForm):
 		]
 		
 User = get_user_model()
+
 class UserLoginForm(forms.Form):
 	username = forms.CharField()
 	password = forms.CharField(widget=forms.PasswordInput)

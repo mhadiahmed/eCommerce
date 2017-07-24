@@ -15,6 +15,8 @@ class PostForm(forms.ModelForm):
 			"case",
 			"dis",
 			"image",
+			"image1",
+			"image2",
 			"price",
 			"city",
 			"address",

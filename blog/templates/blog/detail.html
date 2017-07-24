@@ -23,11 +23,66 @@
                         {% url 'delete' as delete %}
                         <span class="btn btn-warning"><a href="{{instance.get_delete_url}}">Delete</a></span><br>
                         {%endif%}
-                        
-    					{% if instance.image %}
     					<div class="thumbnail">
-							<img src="{{ instance.image.url }}" class="img-resposive"/>
-							{% endif %}
+                        {% if instance.image and instance.image1 and instance.image2 %}
+							{# <img src="{{ instance.image.url }}" class="img-resposive"/> #}
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"  style="height: 400px">
+                          <!-- Indicators -->
+                          <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                          </ol>
+
+                          <!-- Wrapper for slides -->
+                          <div class="carousel-inner" role="listbox"  style="height: 400px">
+                            <div class="item active" style="height: 400px">
+                            {% load staticfiles %}
+                              <img src="{{ instance.image.url }}" alt="..."  width="100%">
+                              <div class="carousel-caption" >
+                                  <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
+                                  {# |truncatechars:20 #}
+                                  <p style="font-size: 15pt"><strong>{{instance.dis}}</strong></p>
+                              </div>
+                            </div>
+                            <div class="item" style="height: 400px">
+                              <img src="{{ instance.image1.url }}" class="img-resposive" alt="..." >
+                              <div class="carousel-caption">
+                                  <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
+                                  <p style="font-size: 15pt"><strong></strong></p>
+                              </div>
+                            </div>
+                            <div class="item" style="height: 400px">
+                              <img src="{{ instance.image2.url }}" alt="..." width="100%">
+                              <div class="carousel-caption">
+                                  <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
+                                  <p style="font-size: 15pt"><strong></strong></p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Controls -->
+                          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </div>
+
+                        {%else%}
+                            {%if instance.image %}
+                              <img src="{{ instance.image.url }}" class="img-resposive"/>
+                            {% endif %}
+                            {%if instance.image1 %}
+                              <img src="{{ instance.image1 }}" class="img-resposive"/>
+                            {% endif %}
+                            {%if instance.image2 %}
+                              <img src="{{ instance.image2 }}" class="img-resposive"/>
+                            {% endif %}
+                        {% endif %}
     					</div>
     					<div class="icerik-bilgi">
     						<h2><strong>{{instance.title}}</strong><small><br>
