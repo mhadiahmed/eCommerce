@@ -1,5 +1,6 @@
 {%extends 'blog/header.html'%}
 {% load crispy_forms_tags  %}
+{% load staticfiles %}
 {% block content %}
 
 {% if messages %}
@@ -19,12 +20,12 @@
     		    <!-- <div class="panel-body"> -->
     				<div class="col-md-12">
     				    {%if request.user == instance.auth or request.user.id == 1%}
-                        <span class="btn btn-default"><a href="{{instance.get_update_url}}">Edit</a></span>
+                        <a href="{{instance.get_update_url}}"><span class="btn btn-default">Edit</span></a>
                         {% url 'delete' as delete %}
-                        <span class="btn btn-warning"><a href="{{instance.get_delete_url}}">Delete</a></span><br>
+                        <a href="{{instance.get_delete_url}}"><span class="btn btn-warning">Delete</span></a><br>
                         {%endif%}
     					<div class="thumbnail">
-                        {% if instance.image and instance.image1 and instance.image2 %}
+
 							{# <img src="{{ instance.image.url }}" class="img-resposive"/> #}
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"  style="height: 400px">
                           <!-- Indicators -->
@@ -36,29 +37,35 @@
 
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner" role="listbox"  style="height: 400px">
-                            <div class="item active" style="height: 400px">
-                            {% load staticfiles %}
-                              <img src="{{ instance.image.url }}" alt="..."  width="100%">
-                              <div class="carousel-caption" >
-                                  <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
-                                  {# |truncatechars:20 #}
-                                  <p style="font-size: 15pt"><strong>{{instance.dis}}</strong></p>
+                            {%if instance.image %}
+                              <div class="item active" style="height: 400px">
+                               <img src="{{ instance.image.url }}" alt="..."  width="100%">
+                                <div class="carousel-caption" >
+                                    <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
+                                    {# |truncatechars:20 #}
+                                    <p style="font-size: 15pt"><strong></strong></p>
+                                </div>
                               </div>
-                            </div>
-                            <div class="item" style="height: 400px">
-                              <img src="{{ instance.image1.url }}" class="img-resposive" alt="..." >
-                              <div class="carousel-caption">
-                                  <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
-                                  <p style="font-size: 15pt"><strong></strong></p>
+                            {% endif %}
+                            {%if instance.image1 %}
+                              <div class="item" style="height: 400px">
+                               <img src="{{ instance.image1.url }}" alt="..."  width="100%">
+                                <div class="carousel-caption">
+                                    <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
+                                    <p style="font-size: 15pt"><strong></strong></p>
+                                </div>
                               </div>
-                            </div>
-                            <div class="item" style="height: 400px">
-                              <img src="{{ instance.image2.url }}" alt="..." width="100%">
-                              <div class="carousel-caption">
-                                  <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
-                                  <p style="font-size: 15pt"><strong></strong></p>
+                            {% endif %}
+                            {%if instance.image2 %}
+                              <div class="item" style="height: 400px">
+                               <img src="{{ instance.image2.url }}" alt="..."  width="100%">
+                               
+                                <div class="carousel-caption">
+                                    <h1 style = "color:#fff; font-size: 50pt; text-shadow:0 0 3px #000, 0 0 10px #000;">{{instance.title}}</h1>
+                                    <p style="font-size: 15pt"><strong></strong></p>
+                                </div>
                               </div>
-                            </div>
+                            {% endif %}
                           </div>
 
                           <!-- Controls -->
@@ -72,17 +79,6 @@
                           </a>
                         </div>
 
-                        {%else%}
-                            {%if instance.image %}
-                              <img src="{{ instance.image.url }}" class="img-resposive"/>
-                            {% endif %}
-                            {%if instance.image1 %}
-                              <img src="{{ instance.image1 }}" class="img-resposive"/>
-                            {% endif %}
-                            {%if instance.image2 %}
-                              <img src="{{ instance.image2 }}" class="img-resposive"/>
-                            {% endif %}
-                        {% endif %}
     					</div>
     					<div class="icerik-bilgi">
     						<h2><strong>{{instance.title}}</strong><small><br>

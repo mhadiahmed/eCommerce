@@ -241,9 +241,14 @@ def delete(request, id=None):
 		respons.status_code = 403
 		return respons
 	instance = get_object_or_404(Post,id=id)
-	instance.delete()
-	messages.success(request,"successfully Delete")
-	return redirect("home")
+	if request.method == 'POST':	
+		instance.delete()
+		messages.success(request,"successfully Delete")
+		return redirect('home')
+	context = {
+	'instance':instance
+	}
+	return render(request,"blog/DeletePost.html",context)
 
 # contact me
 def contact(request):

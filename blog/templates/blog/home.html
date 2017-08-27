@@ -54,13 +54,14 @@
     <span class="sr-only">Next</span>
   </a>
 </div><br>
-<div style="clear: both;margin-bottom: 20px;"><a class = "btn btn-warning" href="{% url 'create' %}"><i class="fa fa-plus">  Post a Free Add</i></a></div>
+<div style="clear: both;margin-bottom: 20px;"><a class = "btn btn-warning" href="{% url 'create' %}"><i class="fa fa-plus"> Add a Free Post</i></a></div>
 {% include 'blog/include/header2.html'%}
 <div class="row" style = "padding-top:20px;">
 <div class="container"><h2>Latest Additions</h2></div>
 {%for obj in object_list%}
-  <div class="col-sm-3 ">
-    <div class="thumbnail enr">
+
+
+    <div class="thumbnail enr col-sm-3" style="margin:10px">
 	{% if obj.image %}
 	<img src="{{ obj.image.url }}" class="img-rounded" />
 	{% endif %}
@@ -94,8 +95,7 @@
         </p>
       </div>
     </div>
-   </div>
-  {% endfor %}
+  {% endfor %} 
   <div class="clearfix"></div>
   <div class="pagination">
     <span class="step-links">
@@ -117,10 +117,13 @@
 {%endfor%} #} -->
     <!--star load-->
 
+
 </div>
 </div>
 </div>
 
-
+    <section class="load-d">
+        <h1>test</h1>
+    </section> 
 
 {% endblock content %}

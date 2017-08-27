@@ -48,7 +48,7 @@ class BuyForm(forms.Form):
 		super(BuyForm, self).__init__(*args, **kwargs)
 		self.fields['code_name'].label = "Your Name"
 		self.fields['buy_number'].label = "Your Card Number"
-		self.fields['card_expiry_date'].label = "Dard Expiry Date"
+		self.fields['card_expiry_date'].label = "Card Expiry Date"
 		self.fields['card_Cvv'].label = "Card CVV"
 
 

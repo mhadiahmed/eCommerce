@@ -1,5 +1,6 @@
 from django import forms
 from .models import userProfile
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import Permission, User
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import(
@@ -24,8 +25,12 @@ class UserProfile(forms.ModelForm):
 User = get_user_model()
 
 class UserLoginForm(forms.Form):
-	username = forms.CharField()
-	password = forms.CharField(widget=forms.PasswordInput)
+	username = forms.CharField(widget=forms.TextInput(
+		attrs={'id':'user'}
+		))
+	password = forms.CharField(widget=forms.PasswordInput(
+		attrs={'id':'passlog'}
+		))
 
 
 	def clean(self,*args,**kwargs):
@@ -65,12 +70,12 @@ class UserRigester(forms.ModelForm):
 		]
 
 
+
 	def clean_password2(self):
 		password = self.cleaned_data.get("password")
 		password2 = self.cleaned_data.get("password2")
 		if password != password2:
 			raise forms.ValidationError("password must match.")
-
 		return password
 
 	def clean_email2(self):
@@ -78,7 +83,6 @@ class UserRigester(forms.ModelForm):
 		email2 = self.cleaned_data.get("email2")
 		if email != email2:
 			raise forms.ValidationError("Emails must match.")
-
 		return email
 
 
@@ -91,5 +95,15 @@ class UserRigester(forms.ModelForm):
 
 			permission = Permission.objects.get(name='can_change')
 			user.user_permissions.add(permission)
+
+class EditProfileForm(UserChangeForm):
+	class Meta:
+		model = User
+		fields=(
+			"first_name",
+			"last_name",
+			"email",
+			"password"
+			)
 
 
