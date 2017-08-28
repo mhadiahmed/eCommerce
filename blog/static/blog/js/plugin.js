@@ -350,7 +350,7 @@ $(function() {
 
 $(window).load(function() {
 	
-	var loading = $('.load-d h1')
+	var loading = $('.load-d .loader')
 	// $('body').css("overflow","hidden")
     loading.fadeOut(1000,function(){
     	$(this).parent().fadeOut(1000,function(){
