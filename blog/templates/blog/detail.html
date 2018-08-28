@@ -127,7 +127,7 @@
                              <div class="main">
                                 <p class="lead"><strong>Comments</strong></p>
                                 {% if request.user.is_authenticated%}
-                                <form method="POST" action="">
+                                <form method="Post" action="">
                                     {% csrf_token %}
                                     {{coments_form|crispy}}
                                     <button  type="submit"  class="btn btn-info">Comment</button>
@@ -151,7 +151,7 @@
                                     </blockquote>
                                         {% endfor %}
                                             {% if request.user.is_authenticated%}
-                                            <form method="POST" action="">
+                                            <form method="Post" action="">
                                                 {% csrf_token %}
                                                 {{coments_form|crispy}}
                                                 <input type="hidden" name="parent_id" value="{{comment.id}}">

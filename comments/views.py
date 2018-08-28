@@ -21,7 +21,7 @@ def comment_delete(request,id):
 		respons = HttpResponse("You do not have permission to do this.")
 		respons.status_code = 403
 		return respons
-	if request.method == "POST":
+	if request.method == "Post":
 		parent_obj_url = obj.content_object.get_absolute_url()
 		obj.delete()
 		messages.success(request,"successfully deleted.")
@@ -47,15 +47,15 @@ def thread(request,id):
 		"content_type": obj.content_type,
 		"object_id": obj.object_id
 	} 
-	form = CommentForm(request.POST or None,initial=initial_data)
-	if form.is_valid() and request.user.is_authenticated():
+	form = CommentForm(request.Post or None,initial=initial_data)
+	if form.is_valid() and request.user.is_authenticated:
 		c_type = form.cleaned_data.get("content_type")
 		content_type = ContentType.objects.get(model=c_type)
 		obj_id = form.cleaned_data.get("object_id")
 		content_data = form.cleaned_data.get("content")
 		parent_obj = None
 		try:
-			parent_id = int(request.POST.get("parent_id"))
+			parent_id = int(request.Post.get("parent_id"))
 		except:
 			parent_id = None
 

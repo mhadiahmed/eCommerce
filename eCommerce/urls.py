@@ -29,6 +29,7 @@ urlpatterns = [
     # url(r'^singup/',views.register_view,name='singup'),
     url(r'^custmize/$',views.edit_all,name='custmize'),
     url(r'^', include("blog.urls")),
+    url(r'^api/Post/', include("api.urls")),
     # url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     # url(r'^logout/$', auth_views.logout, {'template_name': 'logged_out.html'}, name='logout'),
 ]

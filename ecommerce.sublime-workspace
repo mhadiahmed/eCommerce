@@ -55,7 +55,7 @@
 			"file": "eCommerce/urls.py",
 			"settings":
 			{
-				"buffer_size": 1600,
+				"buffer_size": 1757,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -64,7 +64,7 @@
 			"file": "eCommerce/settings.py",
 			"settings":
 			{
-				"buffer_size": 4058,
+				"buffer_size": 4080,
 				"line_ending": "Unix"
 			}
 		}
@@ -107,6 +107,7 @@
 	},
 	"expanded_folders":
 	[
+		"/home/mhadi/Desktop/eCommerce"
 	],
 	"file_history":
 	[
@@ -164,7 +165,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -217,7 +218,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1600,
+						"buffer_size": 1757,
 						"regions":
 						{
 						},
@@ -247,15 +248,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4058,
+						"buffer_size": 4080,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3243,
-								3243
+								0,
+								0
 							]
 						],
 						"settings":
@@ -276,7 +277,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -317,7 +318,7 @@
 	"project": "",
 	"replace":
 	{
-		"height": 42.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":

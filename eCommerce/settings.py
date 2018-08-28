@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'pagedown',
+    'rest_framework',
     # 'permission',
     #'filer',
     #'easy_thumbnails',

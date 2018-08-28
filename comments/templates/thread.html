@@ -19,7 +19,7 @@
     </blockquote>
         {% endfor %}
         {% if request.user.is_authenticated%}
-            <form method="POST" action="">
+            <form method="Post" action="">
                 {% csrf_token %}
                 {{form|crispy}}
                 <input type="hidden" name="parent_id" value="{{comment.id}}">

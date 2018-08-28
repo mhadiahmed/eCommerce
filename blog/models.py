@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import Permission, User
@@ -11,8 +11,17 @@ class PostManager(models.Manager):
 	def active(self, *args, **kwargs):
 		return super(PostManager,self).filter(draft=False).filter(puplis__lte=timezone.now())
 
+class Catigory(models.Model):
+	name = models.CharField(max_length=150,db_index=True)
+	create_at = models.DateTimeField(auto_now_add=True)
+	update_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.name
+
 class Post(models.Model):
-	auth = models.ForeignKey(User,default=1)
+	
+	auth = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
 	title        = models.CharField(max_length=120)
 	DESCSPECSOFT = (
     (u'Null','Null'),
@@ -52,11 +61,11 @@ class Post(models.Model):
     (u'Other',u'Other'),
     ) 
 
-	Type = models.CharField(choices=DESCSPECSOFT, default='Null',blank = False,null = False,max_length=120)
+	Type 		 = models.CharField(choices=DESCSPECSOFT, default='Null',blank = False,null = False,max_length=120)
 	company      = models.CharField(max_length=120)
 	dis          = models.TextField(default="in here you w,ll write all the discribtion about your product")
 	image        = models.ImageField(null=True,blank=True,width_field="width_field", height_field="height_field")
-	image1        = models.ImageField(null=True,blank=True,width_field="width_field", height_field="height_field")
+	image1       = models.ImageField(null=True,blank=True,width_field="width_field", height_field="height_field")
 	image2       = models.ImageField(null=True,blank=True,width_field="width_field", height_field="height_field")
 	width_field  = models.IntegerField(null=True,blank=True,default=0)
 	height_field = models.IntegerField(null=True,blank=True,default=0)

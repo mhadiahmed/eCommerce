@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='post',
+            model_name='Post',
             name='height_field',
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AlterField(
-            model_name='post',
+            model_name='Post',
             name='width_field',
             field=models.IntegerField(blank=True, default=0, null=True),
         ),

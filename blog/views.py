@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.contrib import messages
 from .models import Post
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from comments.forms import CommentForm
 from .forms import PostForm
 from comments.models import comment
@@ -55,7 +55,7 @@ def index(request):
 #=================create a post========================
 @login_required
 def create(request):
-	if 	not request.user.is_authenticated():
+	if 	not request.user.is_authenticated:
 		# raise Http404
 		respons = render_to_response("blog/response.html",{"title":"Page Not Fonde 404"})
 		respons.status_code = 403
@@ -88,7 +88,7 @@ def detail(request,id=None):
 		"object_id": instance.id
 	} 
 	_form = CommentForm(request.POST or None, initial=initial_data)
-	if _form.is_valid() and request.user.is_authenticated():
+	if _form.is_valid() and request.user.is_authenticated:
 		c_type = _form.cleaned_data.get("content_type")
 		content_type = ContentType.objects.get(model=c_type)
 		obj_id = _form.cleaned_data.get("object_id")
@@ -128,7 +128,7 @@ def profile(request,pk=None):
 		user = User.objects.get(pk=pk)
 	else:
 	  	user = request.user
-	if not user.is_authenticated():
+	if not user.is_authenticated:
 		respons = render_to_response("blog/noprofile.html",{"title":"Not Fonde 404"})
 		respons.status_code = 403
 		return respons
@@ -349,7 +349,7 @@ def direct(request):
 #buy form
 @login_required
 def buy(request):
-	if not request.user.is_authenticated():
+	if not request.user.is_authenticated:
 		# raise Http404
 		respons = render_to_response("blog/403edit.html",{"title":"Not Fonde 404"})
 		respons.status_code = 403
